@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dung</title>
+    <style>
+        body{
+            background-color: #222;
+        }
+
+        canvas {
+            background: url('./wasaaa.png') repeat;
+          
+            border: 4px solid black;
+            
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas>
+        
+
+    </canvas>
+
+    <img hidden id="spriteplayer" src="./Captura_de_pantalla_2024-05-09_172238-removebg-preview.png" alt="sprite player"/>
+    <script>
+        console.log('hello');
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        
+        const spriteplayer = document.querySelector('#spriteplayer');
+        canvas.width = 600
+        canvas.height = 600
+        let counter = 0;
+
+        // variables player
+        const playerRadius = 20;
+        let x = canvas.width / 2
+        let y = canvas.height -30
+        let dx = 1;
+        let dy = -1;
+
+        let rightPressed = false
+        let leftPressed = false
+        let upPressed = false
+        let downPressed = false
+
+        function drawdungeon(){
+
+        }
+        function drawenemy(){
+
+        }
+
+        function drawplayer(){
+            ctx.drawImage(spriteplayer, x - playerRadius, y - playerRadius, playerRadius * 2, playerRadius * 2);
+
+            //ctx.fillStyle = '#fff';  // Establece el color de relleno
+            //ctx.fillRect(x - playerRadius, y - playerRadius, playerRadius * 2, playerRadius * 2);  // Dibuja un cuadrado centrado en (x, y) con el tamaño de playerRadius
+        }
+
+
+
+        function collisiondetection(){
+
+        }
+        function atackmovement(){
+
+        }
+        function playermovement(){
+            if(rightPressed && x + playerRadius * 2 < canvas.width){
+                x += 7;
+            }
+
+            if(leftPressed && x - playerRadius > 0){
+                x -= 7;
+            }
+
+            if(upPressed && y - playerRadius > 0){
+                y -= 7;
+            }
+
+            if(downPressed && y + playerRadius * 2 < canvas.height){
+                y += 7;
+            }
+        }
+
+        function cleanCanvas(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+        }
+
+        function initEvents(){
+            document.addEventListener('keydown', keyDownHandler);
+            document.addEventListener('keyup', keyUpHandler);
+
+            function keyDownHandler(event){
+                const {key} = event
+                if(key === 'Right' || key === 'ArrowRight'){
+                    rightPressed = true
+                }
+                if(key === 'Left' || key === 'ArrowLeft'){
+                    leftPressed = true
+                }
+                if(key === 'Up' || key === 'ArrowUp'){
+                    upPressed = true
+                }
+                if(key === 'Down' || key === 'ArrowDown'){
+                    downPressed = true
+                }
+            }
+
+            function keyUpHandler(event){
+                const {key} = event
+                if(key === 'Right' || key === 'ArrowRight'){
+                    rightPressed = false
+                }
+                if(key === 'Left' || key === 'ArrowLeft'){
+                    leftPressed = false
+                }
+                if(key === 'Up' || key === 'ArrowUp'){
+                    upPressed = false
+                }
+                if(key === 'Down' || key === 'ArrowDown'){
+                    downPressed = false
+                }
+            }
+        }
+        function draw(){
+            cleanCanvas();
+            //dibujo de los elementos
+            drawdungeon();
+            drawenemy();
+            drawplayer();
+
+            //acciones movs y colisiones
+            collisiondetection();
+            atackmovement();
+            playermovement();
+
+            console.log('jungeando');
+            window.requestAnimationFrame(draw);
+        }
+
+        draw();
+        initEvents();
+    </script>
+    
+</body>
+</html>
