@@ -24,6 +24,7 @@
         
 
     </canvas>
+    <audio id="music" src="/Dung-jung-/audio/hide.mp3" autoplay loop></audio>
 
     <img hidden id="spriteplayer" src="/Dung-jung-/img/you.png" alt="sprite player"/>
     <img hidden id="spriteenemy" src="/Dung-jung-/img/enemy.png" alt="sprite enemy"/>
@@ -40,6 +41,20 @@
         canvas.height = 600
         let counter = 0;
 
+        //reproducor audio
+        const music = document.getElementById('music');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simular clic en la página para permitir la reproducción automática
+            document.body.addEventListener('click', function() {
+                music.play();
+            }, { once: true }); // La escucha del evento se eliminará después de que se reproduzca la música
+        });
+
+        music.onended = function() {
+            music.play(); // Reproducir nuevamente cuando termine
+        };
+        
         // variables player
         const playerRadius = 20;
         let x = canvas.width / 2
