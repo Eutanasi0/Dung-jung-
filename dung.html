@@ -41,20 +41,20 @@
         canvas.height = 600
         let counter = 0;
 
-        //reproducor audio
+        //hide cs01
         const music = document.getElementById('music');
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Simular clic en la página para permitir la reproducción automática
+            
             document.body.addEventListener('click', function() {
                 music.play();
-            }, { once: true }); // La escucha del evento se eliminará después de que se reproduzca la música
+            }, { once: true }); 
         });
 
         music.onended = function() {
-            music.play(); // Reproducir nuevamente cuando termine
+            music.play(); 
         };
-        
+
         // variables player
         const playerRadius = 20;
         let x = canvas.width / 2
