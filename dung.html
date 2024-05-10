@@ -10,7 +10,7 @@
         }
 
         canvas {
-            background: url('./brick.png') repeat;
+            background: url('/Dung-jung-/img/brick.png') repeat;
           
             border: 4px solid black;
             
@@ -25,7 +25,8 @@
 
     </canvas>
 
-    <img hidden id="spriteplayer" src="./you.png" alt="sprite player"/>
+    <img hidden id="spriteplayer" src="/Dung-jung-/img/you.png" alt="sprite player"/>
+    <img hidden id="spriteenemy" src="/Dung-jung-/img/enemy.png" alt="sprite enemy"/>
     <script>
         console.log('hello');
         const canvas = document.querySelector('canvas');
@@ -33,6 +34,8 @@
 
         
         const spriteplayer = document.querySelector('#spriteplayer');
+        const spriteenemy = document.querySelector('#spriteenemy');
+
         canvas.width = 600
         canvas.height = 600
         let counter = 0;
@@ -49,19 +52,29 @@
         let upPressed = false
         let downPressed = false
 
+        //variables enemigos
+        let enemyRadius = 30;
+        let enemyX = canvas.width / 2
+        let enemyY = canvas.height / 2
+        let enemyDx = 1;
+        let enemyDy = -1;
+
         function drawdungeon(){
 
         }
         function drawenemy(){
+            ctx.drawImage(spriteenemy, enemyX - enemyRadius, enemyY - enemyRadius, enemyRadius * 2, enemyRadius * 2);
+            //ctx.fillStyle = '#ff0000';  // Establece el color de relleno
+            //ctx.fillRect(enemyX - enemyRadius, enemyY - enemyRadius, enemyRadius * 2, enemyRadius * 2);  // Dibuja un cuadrado centrado en (x, y) con el tamaño de playerRadius
+    
+
 
         }
 
         function drawplayer(){
             ctx.drawImage(spriteplayer, x - playerRadius, y - playerRadius, playerRadius * 2, playerRadius * 2);
 
-            //ctx.fillStyle = '#fff';  // Establece el color de relleno
-            //ctx.fillRect(x - playerRadius, y - playerRadius, playerRadius * 2, playerRadius * 2);  // Dibuja un cuadrado centrado en (x, y) con el tamaño de playerRadius
-        }
+         }
 
 
 
@@ -86,6 +99,22 @@
 
             if(downPressed && y + playerRadius * 2 < canvas.height){
                 y += 7;
+            }
+        }
+
+        function enemymovement(){
+            const dx = x - enemyX;
+            const dy = y - enemyY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Si el enemigo está lo suficientemente cerca del jugador, lo persigue
+            if(distance < 200){
+                // Calcula el ángulo entre el enemigo y el jugador
+                const angle = Math.atan2(dy, dx);
+
+                // Calcula la nueva posición del enemigo en función de su velocidad
+                enemyX += Math.cos(angle) * 2;
+                enemyY += Math.sin(angle) * 2;
             }
         }
 
@@ -139,6 +168,7 @@
             //acciones movs y colisiones
             collisiondetection();
             atackmovement();
+            enemymovement();
             playermovement();
 
             console.log('jungeando');
