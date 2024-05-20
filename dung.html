@@ -65,6 +65,8 @@
         //que el enemigo aparezca aleatoriamente e cualkier parte de la pantalla
         let enemyX = Math.random() * canvas.width;
         let enemyY = Math.random() * canvas.height;
+
+
         
         //let enemyX = canvas.width / 2
         //let enemyY = canvas.height / 2
@@ -171,11 +173,7 @@
             drawrcuadrado();
             //hacer que aleateoramiente se repita de 1 a 3 vecs drawenemy
             //de 1 a 3
-            let wasa = Math.floor(Math.random() * 3) + 1;
-            if (wasa<=3) {
-                wasa*drawenemy();
-            }
-
+            drawenemy();
 
 
             drawplayer();
