@@ -71,7 +71,17 @@
         let enemyDx = 1;
         let enemyDy = -1;
 
-        function drawdungeon() {}
+        //variables del cuadradito
+        const cuadrado = 50;
+        let cuadradox = canvas.width /2 - 10;
+        let cuadradoy = canvas.height /10;
+        
+
+        function drawrcuadrado() {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(cuadradox, cuadradoy, cuadrado, cuadrado);
+
+        }
 
         function drawenemy() {
             ctx.drawImage(spriteenemy, enemyX - enemyRadius, enemyY - enemyRadius, enemyRadius * 2, enemyRadius * 2);
@@ -82,12 +92,8 @@
         }
 
         function collisiondetection() {}
-        //ataque deljugador
 
-        function atackmovement() {
-            //si player presiona espacio
-            
-        }
+        function atackmovement() {}
 
         function playermovement() {
             if (rightPressed && x + playerRadius * 2 < canvas.width) {
@@ -162,8 +168,16 @@
 
         function draw() {
             cleanCanvas();
-            drawdungeon();
-            drawenemy();
+            drawrcuadrado();
+            //hacer que aleateoramiente se repita de 1 a 3 vecs drawenemy
+            //de 1 a 3
+            let wasa = Math.floor(Math.random() * 3) + 1;
+            if (wasa<=3) {
+                wasa*drawenemy();
+            }
+
+
+
             drawplayer();
 
             collisiondetection();
