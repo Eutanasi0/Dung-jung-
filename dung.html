@@ -5,182 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dung</title>
     <style>
-        body{
+        body {
             background-color: #222;
         }
 
         canvas {
-            background: url('/Dung-jung-/img/brick.png') repeat;
-          
+            background: url('./img/brick.png') repeat;
             border: 4px solid black;
-            
             margin: 0 auto;
             display: block;
         }
     </style>
 </head>
 <body>
-    <canvas>
-        
+    <canvas></canvas>
+    <audio id="music" src="./audio/hide.mp3" autoplay loop></audio>
 
-    </canvas>
-    <audio id="music" src="/Dung-jung-/audio/hide.mp3" autoplay loop></audio>
-
-    <img hidden id="spriteplayer" src="/Dung-jung-/img/you.png" alt="sprite player"/>
-    <img hidden id="spriteenemy" src="/Dung-jung-/img/enemy.png" alt="sprite enemy"/>
+    <img hidden id="spriteplayer" src="./img/you.png" alt="sprite player"/>
+    <img hidden id="spriteenemy" src="./img/enemy.png" alt="sprite enemy"/>
     <script>
         console.log('hello');
         const canvas = document.querySelector('canvas');
         const ctx = canvas.getContext('2d');
 
-        
         const spriteplayer = document.querySelector('#spriteplayer');
         const spriteenemy = document.querySelector('#spriteenemy');
 
-        canvas.width = 600
-        canvas.height = 600
+        canvas.width = 600;
+        canvas.height = 600;
         let counter = 0;
 
         //hide cs01
         const music = document.getElementById('music');
 
         document.addEventListener('DOMContentLoaded', function() {
-            
             document.body.addEventListener('click', function() {
                 music.play();
-            }, { once: true }); 
+            }, { once: true });
         });
 
         music.onended = function() {
-            music.play(); 
+            music.play();
         };
 
         // variables player
         const playerRadius = 20;
-        let x = canvas.width / 2
-        let y = canvas.height -30
+        let x = canvas.width / 2;
+        let y = canvas.height - 30;
         let dx = 1;
         let dy = -1;
 
-        let rightPressed = false
-        let leftPressed = false
-        let upPressed = false
-        let downPressed = false
+        let rightPressed = false;
+        let leftPressed = false;
+        let upPressed = false;
+        let downPressed = false;
 
         //variables enemigos
         let enemyRadius = 30;
-        let enemyX = canvas.width / 2
-        let enemyY = canvas.height / 2
+        //que el enemigo aparezca aleatoriamente e cualkier parte de la pantalla
+        let enemyX = Math.random() * canvas.width;
+        let enemyY = Math.random() * canvas.height;
+        
+        //let enemyX = canvas.width / 2
+        //let enemyY = canvas.height / 2
         let enemyDx = 1;
         let enemyDy = -1;
 
-        function drawdungeon(){
+        function drawdungeon() {}
 
-        }
-        function drawenemy(){
+        function drawenemy() {
             ctx.drawImage(spriteenemy, enemyX - enemyRadius, enemyY - enemyRadius, enemyRadius * 2, enemyRadius * 2);
-            //ctx.fillStyle = '#ff0000';  // Establece el color de relleno
-            //ctx.fillRect(enemyX - enemyRadius, enemyY - enemyRadius, enemyRadius * 2, enemyRadius * 2);  // Dibuja un cuadrado centrado en (x, y) con el tamaño de playerRadius
-    
-
-
         }
 
-        function drawplayer(){
+        function drawplayer() {
             ctx.drawImage(spriteplayer, x - playerRadius, y - playerRadius, playerRadius * 2, playerRadius * 2);
-
-         }
-
-
-
-        function collisiondetection(){
-
         }
-        function atackmovement(){
 
+        function collisiondetection() {}
+        //ataque deljugador
+
+        function atackmovement() {
+            //si player presiona espacio
+            
         }
-        function playermovement(){
-            if(rightPressed && x + playerRadius * 2 < canvas.width){
+
+        function playermovement() {
+            if (rightPressed && x + playerRadius * 2 < canvas.width) {
                 x += 7;
             }
 
-            if(leftPressed && x - playerRadius > 0){
+            if (leftPressed && x - playerRadius > 0) {
                 x -= 7;
             }
 
-            if(upPressed && y - playerRadius > 0){
+            if (upPressed && y - playerRadius > 0) {
                 y -= 7;
             }
 
-            if(downPressed && y + playerRadius * 2 < canvas.height){
+            if (downPressed && y + playerRadius * 2 < canvas.height) {
                 y += 7;
             }
         }
 
-        function enemymovement(){
+        function enemymovement() {
             const dx = x - enemyX;
             const dy = y - enemyY;
             const distance = Math.sqrt(dx * dx + dy * dy);
 
-            // Si el enemigo está lo suficientemente cerca del jugador, lo persigue
-            if(distance < 200){
-                // Calcula el ángulo entre el enemigo y el jugador
+            if (distance < 200) {
                 const angle = Math.atan2(dy, dx);
-
-                // Calcula la nueva posición del enemigo en función de su velocidad
                 enemyX += Math.cos(angle) * 2;
                 enemyY += Math.sin(angle) * 2;
             }
         }
 
-        function cleanCanvas(){
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
+        function cleanCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
-        function initEvents(){
+        function initEvents() {
             document.addEventListener('keydown', keyDownHandler);
             document.addEventListener('keyup', keyUpHandler);
 
-            function keyDownHandler(event){
-                const {key} = event
-                if(key === 'Right' || key === 'ArrowRight'){
-                    rightPressed = true
+            function keyDownHandler(event) {
+                const { key } = event;
+                if (key === 'Right' || key === 'ArrowRight') {
+                    rightPressed = true;
                 }
-                if(key === 'Left' || key === 'ArrowLeft'){
-                    leftPressed = true
+                if (key === 'Left' || key === 'ArrowLeft') {
+                    leftPressed = true;
                 }
-                if(key === 'Up' || key === 'ArrowUp'){
-                    upPressed = true
+                if (key === 'Up' || key === 'ArrowUp') {
+                    upPressed = true;
                 }
-                if(key === 'Down' || key === 'ArrowDown'){
-                    downPressed = true
+                if (key === 'Down' || key === 'ArrowDown') {
+                    downPressed = true;
                 }
             }
 
-            function keyUpHandler(event){
-                const {key} = event
-                if(key === 'Right' || key === 'ArrowRight'){
-                    rightPressed = false
+            function keyUpHandler(event) {
+                const { key } = event;
+                if (key === 'Right' || key === 'ArrowRight') {
+                    rightPressed = false;
                 }
-                if(key === 'Left' || key === 'ArrowLeft'){
-                    leftPressed = false
+                if (key === 'Left' || key === 'ArrowLeft') {
+                    leftPressed = false;
                 }
-                if(key === 'Up' || key === 'ArrowUp'){
-                    upPressed = false
+                if (key === 'Up' || key === 'ArrowUp') {
+                    upPressed = false;
                 }
-                if(key === 'Down' || key === 'ArrowDown'){
-                    downPressed = false
+                if (key === 'Down' || key === 'ArrowDown') {
+                    downPressed = false;
                 }
             }
         }
-        function draw(){
+
+        function draw() {
             cleanCanvas();
-            //dibujo de los elementos
             drawdungeon();
             drawenemy();
             drawplayer();
 
-            //acciones movs y colisiones
             collisiondetection();
             atackmovement();
             enemymovement();
@@ -193,6 +178,5 @@
         draw();
         initEvents();
     </script>
-    
 </body>
 </html>
